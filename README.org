@@ -1,0 +1,17 @@
+* Rational
+
+** Usage
+
+** Installation
+
+** Author
+
++ Ito Dimercel (xolcman@gmail.com)
+
+** Copyright
+
+Copyright (c) 2019 Ito Dimercel (xolcman@gmail.com)
+
+** License
+
+Licensed under the GNU License.
