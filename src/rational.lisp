@@ -20,6 +20,9 @@
         (progn ,@forms)
         (lambda (x) (.identity (make-token :id ,token-id :val (funcall ,action x)))))))
 
+(defun .ws ()
+  (.first (.many (.is 'member '(#\space #\tab)))))
+
 (defun .number ()
   (with-token :number 'parse-integer
     (.or (.string= "0")
@@ -34,6 +37,39 @@
             (_ (.char= #\/))
             (denom (.number)))
       (.identity (make-fraction :num (token-val num) :denom (token-val denom))))))
+
+(defun .addition ()
+  (with-token :add nil
+    (.char= #\+)))
+
+(defun .minus ()
+  (with-token :minus nil
+    (.char= #\-)))
+
+(defun .multi ()
+  (with-token :multi nil
+    (.char= #\*)))
+
+(defun .div ()
+  (with-token :div nil
+    (.char= #\:)))
+
+(defun .operation ()
+  (.let* ((_ (.ws))
+          (op (.or (.addition)
+                   (.minus)
+                   (.multi)
+                   (.div)))
+          (_ (.ws)))
+    (.identity op)))
+
+(defun .expr ()
+  (.let* ((head (.fraction))
+          (tail (.many (.let* ((op (.operation))
+                               (f (.fraction)))
+                         (.identity (list op f)))
+                       'list)))
+        (.identity (cons head tail))))
 
 (defun reduce-fraction (fraction)
   (let ((gcd-val (gcd (fraction-num fraction)
