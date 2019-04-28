@@ -14,7 +14,9 @@
   :depends-on ("smug")
   :components ((:module "src"
                 :components
-                ((:file "rational"))))
+                ((:file "rational" :depends-on ("utils"))
+                 (:file "utils")
+              )))
   :description ""
   :long-description
   #.(read-file-string
