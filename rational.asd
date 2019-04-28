@@ -15,8 +15,7 @@
   :components ((:module "src"
                 :components
                 ((:file "rational" :depends-on ("utils"))
-                 (:file "utils")
-              )))
+                 (:file "utils"))))
   :description ""
   :long-description
   #.(read-file-string

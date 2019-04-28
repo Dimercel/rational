@@ -12,10 +12,13 @@
   val)
 
 (defmacro with-token (token-id action &body forms)
-  (when (null action) (setf action #'identity))
-  `(.bind
-    (progn ,@forms)
-    (lambda (x) (.identity (make-token :id ,token-id :val (funcall ,action x))))))
+  (if (null action)
+      `(.bind
+        (progn ,@forms)
+        (lambda (x) (.identity (make-token :id ,token-id :val x))))
+      `(.bind
+        (progn ,@forms)
+        (lambda (x) (.identity (make-token :id ,token-id :val (funcall ,action x)))))))
 
 (defun .number ()
   (with-token :number 'parse-integer
@@ -31,3 +34,9 @@
             (_ (.char= #\/))
             (denom (.number)))
       (.identity (make-fraction :num (token-val num) :denom (token-val denom))))))
+
+(defun reduce-fraction (fraction)
+  (let ((gcd-val (gcd (fraction-num fraction)
+                      (fraction-denom fraction))))
+    (make-fraction :num (/ (fraction-num fraction) gcd-val)
+                   :denom (/ (fraction-denom fraction) gcd-val))))
