@@ -14,9 +14,12 @@
   :depends-on ("smug")
   :components ((:module "src"
                 :components
-                ((:file "rational" :depends-on ("utils"))
-                 (:file "utils"))))
-  :description ""
+                ((:file "utils")
+                 (:file "core")
+                 (:file "parser" :depends-on ("utils" "core"))
+                 (:file "rational" :depends-on ("core" "parser"))
+                )))
+  :description "Basic calculator for rational numbers"
   :long-description
   #.(read-file-string
      (subpathname *load-pathname* "README.markdown"))
