@@ -5,7 +5,8 @@
            :.many
            :.many1
            :.concs
-           :.take-while
+           :take-while
+           :concat
            :.concl))
 
 (in-package :rational.utils)
