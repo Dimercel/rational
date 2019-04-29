@@ -2,7 +2,9 @@
   (:use :cl :smug :rational.utils)
   (:import-from :rational.core :make-fraction)
   (:export :parse-expr
-           :operatorp))
+           :operatorp
+           :token-id
+           :token-val))
 (in-package :rational.parser)
 
 
@@ -73,7 +75,7 @@
                                (f (.fraction)))
                          (.identity (list op f)))
                        'list)))
-        (.identity (cons head tail))))
+        (.identity (cons head (concat tail)))))
 
 (defun parse-expr (expr)
   (parse (.expr) expr))

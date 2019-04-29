@@ -32,3 +32,7 @@
   (loop for item in list
         while (funcall pred item)
         collect item))
+
+(defun concat (list)
+  (apply #'concatenate
+         (cons 'list list)))
