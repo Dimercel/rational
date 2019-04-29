@@ -1,6 +1,10 @@
 (defpackage rational.core
   (:use :cl)
   (:export :make-fraction
+           :add
+           :sub
+           :mul
+           :div
            :reduce-fraction))
 (in-package :rational.core)
 
