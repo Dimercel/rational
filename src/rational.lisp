@@ -58,4 +58,4 @@
 
 (defun main (argv)
   (let ((result (calculate (to-postfix (parse-expr (first argv))))))
-    (format t "Результат: ~a/~a" (fraction-num result) (fraction-denom result))))
+    (format t "Result: ~a/~a" (fraction-num result) (fraction-denom result))))
