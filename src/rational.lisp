@@ -2,7 +2,9 @@
   (:use #:cl #:rational.core)
   (:import-from #:rational.parser
                 #:parse-expr
+                #:make-token
                 #:token-id
+                #:token-val
                 #:operatorp)
   (:import-from #:rational.utils
                 #:take-while))
@@ -32,3 +34,23 @@
               (cons token (subseq stack (length pop-op)))
               (append result pop-op)))))
         (append result stack))))
+
+(defun execute-op (op x y)
+  (cond
+    ((eq (token-id op) :add) (add x y))
+    ((eq (token-id op) :minus) (sub x y))
+    ((eq (token-id op) :multi) (mul x y))
+    ((eq (token-id op) :div) (div x y))))
+
+(defun calculate (expr)
+  "Вычисляет результат выражения,находящиеся в постфиксной записи"
+  (let ((stack nil))
+    (dolist (token expr)
+      (if (eq (token-id token) :frac)
+          (push token stack)
+          (let ((op-2 (token-val (pop stack)))
+                (op-1 (token-val (pop stack))))
+            (push (make-token :id :frac
+                              :val (execute-op token op-1 op-2))
+                  stack))))
+    stack))

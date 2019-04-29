@@ -3,6 +3,7 @@
   (:import-from :rational.core :make-fraction)
   (:export :parse-expr
            :operatorp
+           :make-token
            :token-id
            :token-val))
 (in-package :rational.parser)
