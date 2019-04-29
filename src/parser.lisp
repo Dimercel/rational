@@ -1,13 +1,19 @@
 (defpackage rational.parser
   (:use :cl :smug :rational.utils)
   (:import-from :rational.core :make-fraction)
-  (:export :parse-expr))
+  (:export :parse-expr
+           :operatorp))
 (in-package :rational.parser)
 
 
 (defstruct token
   id
   val)
+
+(defun operatorp (token)
+  (if (member (token-id token) (list :add :minus :multi :div))
+      t
+      nil))
 
 (defmacro with-token (token-id action &body forms)
   (if (null action)
