@@ -5,6 +5,7 @@
            :.many
            :.many1
            :.concs
+           :.take-while
            :.concl))
 
 (in-package :rational.utils)
@@ -26,3 +27,8 @@
 
 (defun .concl (&rest parsers)
   (apply #'.concatenate (cons 'list parsers)))
+
+(defun take-while (pred list)
+  (loop for item in list
+        while (funcall pred item)
+        collect item))
