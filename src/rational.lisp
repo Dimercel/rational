@@ -7,7 +7,8 @@
                 #:token-val
                 #:operatorp)
   (:import-from #:rational.utils
-                #:take-while))
+                #:take-while)
+  (:export #:main))
 (in-package :rational)
 
 
@@ -53,4 +54,8 @@
             (push (make-token :id :frac
                               :val (execute-op token op-1 op-2))
                   stack))))
-    stack))
+    (token-val (first stack))))
+
+(defun main (argv)
+  (let ((result (calculate (to-postfix (parse-expr (first argv))))))
+    (format t "Результат: ~a/~a" (fraction-num result) (fraction-denom result))))

@@ -1,6 +1,8 @@
 (defpackage rational.core
   (:use :cl)
   (:export :make-fraction
+           :fraction-num
+           :fraction-denom
            :add
            :sub
            :mul
