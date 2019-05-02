@@ -57,5 +57,7 @@
     (token-val (first stack))))
 
 (defun main (argv)
-  (let ((result (calculate (to-postfix (parse-expr (first argv))))))
-    (format t "Result: ~a/~a" (fraction-num result) (fraction-denom result))))
+  (if (null argv)
+      (format t "Expression not specified!")
+      (let ((result (calculate (to-postfix (parse-expr (first argv))))))
+        (format t "Result: ~a/~a" (fraction-num result) (fraction-denom result)))))
