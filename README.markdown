@@ -1,6 +1,6 @@
 # Rational
 
-Simple calculator for fraction numbers.
+Simple calculator for fraction numbers. Four operators are implemented: + - * :
 
 ## Usage
 
@@ -8,9 +8,9 @@ Simple calculator for fraction numbers.
 
 Result: 239/189
 
-`./rational "2/3 * 1/3"`
+`./rational "2/3 * 1/3 : 4/3"`
 
-Result: 2/9
+Result: 1/6
 
 ## Installation
 
