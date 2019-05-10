@@ -19,13 +19,10 @@
       nil))
 
 (defmacro with-token (token-id action &body forms)
-  (if (null action)
-      `(.bind
-        (progn ,@forms)
-        (lambda (x) (.identity (make-token :id ,token-id :val x))))
-      `(.bind
-        (progn ,@forms)
-        (lambda (x) (.identity (make-token :id ,token-id :val (funcall ,action x)))))))
+  (let ((fn (if (null action) 'identity action)))
+    `(.bind
+      (progn ,@forms)
+      (lambda (x) (.identity (make-token :id ,token-id :val (funcall ,fn x)))))))
 
 (defun .ws ()
   (.first (.many (.is 'member '(#\space #\tab)))))
